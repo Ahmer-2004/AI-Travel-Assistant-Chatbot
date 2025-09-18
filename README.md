@@ -1,7 +1,7 @@
 # AI-Travel-Assistant-Chatbot
 An AI chabot that will help you to travel in Pakistan along with map with pin locations. 
 
-To use this open project folder with cmd and type:
+To use this open project folder (AI-Travel-Assistant) with cmd and type:
 
 node server.js
 
