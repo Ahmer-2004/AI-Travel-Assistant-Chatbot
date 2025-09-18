@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Assistant Chatbot</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+    // Your Mapbox Access Token
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaWptYWFsMTIzIiwiYSI6ImNtYm1uZW54NTE5MHMyanM1cDdmbmw5ZnoifQ.sEhO_P2LxRfeorklCAFvNg';
+</script>
+
+  <!-- Mapbox CSS & JS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+  <!-- Mapbox Directions Plugin -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+
+  <!-- FontAwesome (safe version) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+</head>
+<body>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#" onclick="showPage('home')">
+      <i class="fas fa-plane"></i> TravelBot
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" onclick="showPage('home')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html" >Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Chatbot</a> 
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="flight.html">Flights & Hotels</a> 
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="map.html">Map</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page-container ">
+        <div class="hero">
+            <div class="container">
+                <h1><i class="fas fa-robot"></i> Travel Assistant Chatbot</h1>
+                <p>Your AI-powered companion for seamless travel planning and booking</p>
+                <div class="mt-4">
+                    <a class="btn btn-primary btn-lg me-3" href="login.html">
+                        <i class="fas fa-user-plus"></i> Get Started
+                    </button>
+                    <a class="btn btn-outline-light btn-lg" href="index.html">
+  <i class="fas fa-comments"></i> Try Chatbot
+</a>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row g-4 mt-5">
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="fas fa-plane-departure fa-3x text-primary mb-3"></i>
+                            <h4>Flight Booking</h4>
+                            <p>Find and book the best flights at competitive prices with our smart search engine.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="fas fa-hotel fa-3x text-primary mb-3"></i>
+                            <h4>Hotel Recommendations</h4>
+                            <p>Discover perfect accommodations tailored to your preferences and budget.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="fas fa-map-marked-alt fa-3x text-primary mb-3"></i>
+                            <h4>Interactive Maps</h4>
+                            <p>Visualize your journey with detailed maps and explore destinations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+
+<!-- Chatbot Page -->
+<!-- <a href="index.html">Open Chatbot</a> -->
+
+</script>
+  
+    <!-- Map Page -->
+    
+ 
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>TravelBot</h5>
+                    <p>Your AI-powered travel companion for seamless journey planning.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Terms of Service</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <p><i class="fas fa-envelope"></i> support@travelbot.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2025 TravelBot. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script src="script.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<!-- ✅ Add this to HEAD -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Mapbox scripts -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+<script type="module" src="script.js"></script>
+    <script>
+
+
+function showPage(pageId, event) {
+      if (event) event.preventDefault();
+      document.querySelectorAll('.page-container').forEach(div => {
+        div.classList.remove('active');
+      });
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    // Default to login view
+    window.onload = () => showPage('home');
+
+
+ 
+        // Search Functionality
+   
+        // Map functionality (simulated)
+        function updateMapRoute(departure, arrival) {
+            const routeInfo = document.getElementById('routeInfo');
+            const landmarks = document.getElementById('landmarks');
+            
+            routeInfo.innerHTML = `
+                <div class="card border-0 bg-light p-3">
+                    <h6><i class="fas fa-route"></i> ${departure} → ${arrival}</h6>
+                    <p class="mb-1"><strong>Distance:</strong> ~1,250 miles</p>
+                    <p class="mb-1"><strong>Flight Time:</strong> ~2.5 hours</p>
+                    <p class="mb-0"><strong>Time Zone:</strong> +2 hours</p>
+                </div>
+            `;
+            
+            landmarks.innerHTML = `
+                <div class="card border-0 bg-light p-3">
+                    <h6><i class="fas fa-map-marker-alt"></i> Points of Interest</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-building"></i> City Center</li>
+                        <li><i class="fas fa-plane"></i> International Airport</li>
+                        <li><i class="fas fa-camera"></i> Tourist District</li>
+                        <li><i class="fas fa-utensils"></i> Restaurant Area</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+    
+        // Initialize date inputs with today's date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+            
+            document.getElementById('departureDate').value = today;
+            document.getElementById('returnDate').value = tomorrow;
+            
+            // Add click handlers for result cards
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-outline-primary') && e.target.textContent === 'Select') {
+                    e.target.textContent = 'Selected';
+                    e.target.classList.remove('btn-outline-primary');
+                    e.target.classList.add('btn-success');
+                    
+                    // Update map if flight selected
+                    const cardBody = e.target.closest('.card-body');
+                    const routeText = cardBody.querySelector('p').textContent;
+                    if (routeText.includes('→')) {
+                        const [departure, arrival] = routeText.split(' → ');
+                        updateMapRoute(departure.trim(), arrival.trim());
+                    }
+                }
+            });
+        });
+
+        // Add smooth scrolling for navigation
+        // document.querySelectorAll('.nav-link').forEach(link => {
+        //     link.addEventListener('click', function(e) {
+        //         e.preventDefault();
+        //     });
+        // });
+
+        // Add some interactive features to the map page
+        function showMapPage() {
+            showPage('map');
+            // Simulate loading route information
+            setTimeout(() => {
+                updateMapRoute('New York', 'London');
+            }, 1000);
+        }
+
+        // Enhanced form validation
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Add input validation styling
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-invalid');
+                }
+            });
+        });
+
+        // Add some sample chat interactions for demo
+        // function addSampleChat() {
+        //     setTimeout(() => {
+        //         addMessage("I'm planning a trip to Paris next month. Can you help?", 'user');
+        //         setTimeout(() => {
+        //             getBotResponse('paris');
+        //             addMessage(getBotResponse('paris'), 'bot');
+        //         }, 1000);
+        //     }, 2000);
+        // }
+
+        // Add loading animation for search
+        function showLoadingAnimation() {
+            const searchButton = document.querySelector('#searchForm button[type="submit"]');
+            const originalText = searchButton.innerHTML;
+            searchButton.innerHTML = '<span class="loading"></span> Searching...';
+            searchButton.disabled = true;
+            
+            setTimeout(() => {
+                searchButton.innerHTML = originalText;
+                searchButton.disabled = false;
+            }, 2000);
+        }
+
+        // Update search form submission to include loading animation
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showLoadingAnimation();
+            
+            const departure = document.getElementById('departureCity').value;
+            const arrival = document.getElementById('arrivalCity').value;
+            const date = document.getElementById('departureDate').value;
+            const passengers = document.getElementById('passengers').value;
+            
+            showSearchResults(departure, arrival, date, passengers);
+        });
+    </script>
+  
+
+<!-- <script>
+    async function loadCities() {
+      const res = await fetch('http://localhost:5000/api/cities');
+      const cities = await res.json();
+      const container = document.getElementById('cities');
+
+      cities.forEach(city => {
+        const div = document.createElement('div');
+        div.innerHTML = `<h2>${city.city}</h2>`;
+        city.hotspots.forEach(h => {
+          div.innerHTML += `
+            <div style="margin-left:20px;">
+              <h3>${h.name}</h3>
+              <img src="${h.image}" alt="${h.name}" width="300">
+              <p>${h.description}</p>
+              <p><strong>Hotels:</strong> ${h.hotels.join(', ')}</p>
+            </div>`;
+        });
+        container.appendChild(div);
+      });
+    }
+
+    loadCities();
+  </script>
+
+<script> 
+
+// const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
+// app.get("/testFlightAPI", async (req, res) => {
+//     const origin = "LAXA";
+//     const destination = "LOND";
+//     const date = "2024-07-10";
+//     const passengers = 1;
+
+//     // ✅ Create and encode legs JSON
+//     const legs = encodeURIComponent(JSON.stringify([
+//         { origin, destination, date }
+//     ]));
+
+//     const url = `https://sky-scrapper.p.rapidapi.com/api/v1/flights/getFlightDetails?legs=${legs}&adults=${passengers}&currency=USD&locale=en-US&market=en-US&cabinClass=economy&countryCode=US`;
+
+//     const options = {
+//         method: 'GET',
+//         headers: {
+//             'x-rapidapi-key': 'e5c0805bbfmsh1cdce252418ab33p14bd81jsn453da6ab0de5',
+//             'x-rapidapi-host': 'sky-scrapper.p.rapidapi.com'
+//         }
+//     };
+
+//     try {
+//         const response = await fetch(url, options);
+//         const data = await response.json();
+//         res.json(data);
+//     } catch (err) {
+//         console.error("❌ Error fetching from API:", err);
+//         res.status(500).json({ error: "API call failed", details: err.message });
+//     }
+// });  !-->
+<script>
+// Add this script to both index.html and chatbot.html
+
+// Function to determine which navbar to show
+function initializeNavbar() {
+    const currentPage = window.location.pathname;
+    const indexNavbar = document.getElementById('index-navbar');
+    const chatbotNavbar = document.getElementById('chatbot-navbar');
+    
+    if (currentPage.includes('index.html') || currentPage.endsWith('/')) {
+        // Show index navbar on chatbot page
+        if (indexNavbar) indexNavbar.style.display = 'block';
+        if (chatbotNavbar) chatbotNavbar.style.display = 'none';
+    } else if (currentPage.includes('chatbot.html')) {
+        // Show chatbot navbar on other pages
+        if (indexNavbar) indexNavbar.style.display = 'none';
+        if (chatbotNavbar) chatbotNavbar.style.display = 'block';
+    }
+}
+
+// Initialize navbar on page load
+document.addEventListener('DOMContentLoaded', initializeNavbar);
+</script>
+</body>
+
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Assistant Chatbot</title>
+
+  <!-- CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Mapbox CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg sticky-top bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="chatbot.html">
+        <i class="fas fa-plane"></i> TravelBot
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="chatbot.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="index.html">Chatbot</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="flight.html">Flights & Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="map.html">Map</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Map Section -->
+  <div id="map" class="page-container active">
+    <div class="container ">
+    <div class="city-container">
+      <form id="distanceForm" class="row g-2 justify-content-center mb-3">
+        <div class="col-sm-4">
+          <select id="fromCity" class="form-select" required>
+            <option value="">From City</option>
+          </select>
+        </div>
+        <div class="col-sm-4">
+          <select id="toCity" class="form-select" required>
+            <option value="">To City</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-route"></i> Calculate
+          </button>
+        </div>
+      </form>
+    </div>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4><i class="fas fa-map"></i> Travel Route</h4>
+        </div>
+        <div class="card-body p-0">
+          <div class="map-container">
+            <div id="mapboxMap"></div>
+          </div>
+          <div class="row mt-4 px-3 pb-3">
+            <div class="col-md-6">
+              <h6>Route Information</h6>
+              <div id="routeInfo">
+                <p class="text-muted">Select a travel route to view details</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6>Nearby Landmarks</h6>
+              <div id="landmarks">
+                <p class="text-muted">Landmarks will appear when route is selected</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"><h5>TravelBot</h5><p>Your AI-powered travel companion.</p></div>
+        <div class="col-md-4">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light">Privacy</a></li>
+            <li><a href="#" class="text-light">Terms</a></li>
+            <li><a href="#" class="text-light">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <p><i class="fas fa-envelope"></i> support@travelbot.com</p>
+        </div>
+      </div>
+      <hr/>
+      <p class="text-center">&copy; 2025 TravelBot. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS Scripts -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaWptYWFsMTIzIiwiYSI6ImNtYm1uZW54NTE5MHMyanM1cDdmbmw5ZnoifQ.sEhO_P2LxRfeorklCAFvNg';
+      const map = new mapboxgl.Map({
+        container: 'mapboxMap',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [69.3451, 30.3753],
+        zoom: 5
+      });
+
+      const directions = new MapboxDirections({
+        accessToken: mapboxgl.accessToken,
+        unit: 'metric',
+        profile: 'mapbox/driving',
+        interactive: false
+      });
+      map.addControl(directions, 'top-left');
+
+      const cities = [
+        { name: "Karachi", coords: [67.0011, 24.8607] },
+        { name: "Lahore", coords: [74.3587, 31.5204] },
+        { name: "Islamabad", coords: [73.0551, 33.6844] },
+        { name: "Skardu", coords: [75.6311, 35.3400] },
+        { name: "Hunza", coords: [74.6500, 36.3167] },
+        { name: "Murree", coords: [73.3907, 33.9070] },
+        { name: "Naran", coords: [73.6436, 35.1752] },
+        { name: "Swat", coords: [72.4667, 35.2183] },
+        { name: "Fairy Meadows", coords: [74.5855, 35.3844] },
+        { name: "Gwadar", coords: [62.3304, 25.1266] },
+        { name: "Peshawar", coords: [71.5249, 34.0151] },
+        { name: "Multan", coords: [71.5249, 30.1575] },
+        { name: "Quetta", coords: [66.9910, 30.1798] },
+        { name: "Hyderabad", coords: [68.3578, 25.3960] },
+        { name: "Gilgit", coords: [74.4800, 35.9208] },
+        { name: "Bahawalpur", coords: [71.6833, 29.3956] },
+        { name: "Sukkur", coords: [68.8384, 27.7052] },
+        { name: "Abbottabad", coords: [73.2420, 34.1463] },
+        { name: "Sialkot", coords: [74.5341, 32.4927] },
+        { name: "Rahim Yar Khan", coords: [70.2952, 28.4195] }
+      ];
+
+      const fromSelect = document.getElementById('fromCity');
+      const toSelect = document.getElementById('toCity');
+      cities.forEach(city => {
+        fromSelect.append(new Option(city.name, city.name));
+        toSelect.append(new Option(city.name, city.name));
+      });
+
+      cities.forEach(location => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        new mapboxgl.Marker(el)
+          .setLngLat(location.coords)
+          .setPopup(new mapboxgl.Popup().setHTML(`<strong>${location.name}</strong>`))
+          .addTo(map);
+      });
+
+      document.getElementById('distanceForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const fromCity = cities.find(c => c.name === fromSelect.value);
+        const toCity = cities.find(c => c.name === toSelect.value);
+        if (!fromCity || !toCity) return alert("Invalid selection");
+        directions.setOrigin(fromCity.coords);
+        directions.setDestination(toCity.coords);
+        directions.on('route', function (e) {
+          const route = e.route[0];
+          const km = (route.distance / 1000).toFixed(1);
+          const mins = Math.ceil(route.duration / 60);
+          new mapboxgl.Popup().setLngLat(toCity.coords)
+            .setHTML(`<strong>${fromCity.name} → ${toCity.name}</strong><br>📏 ${km} km<br>⏱️ ${mins} min`)
+            .addTo(map);
+          map.fitBounds([fromCity.coords, toCity.coords], { padding: 100 });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
